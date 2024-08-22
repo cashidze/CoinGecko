@@ -56,7 +56,7 @@ namespace CoinGecko.Clients
 		        }
 		        else
 		        {
-			        resourceUri = AddParameter(resourceUri, "x-cg-demo-api-key", _apiKey);
+			        resourceUri = AddParameter(resourceUri, "x_cg_demo_api_key", _apiKey);
 		        }
 	        }
 
