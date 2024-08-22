@@ -35,7 +35,12 @@ namespace CoinGecko.Clients
             }
         }
 
-        public BaseApiClient(HttpClient httpClient, JsonSerializerSettings serializerSettings)
+        public BaseApiClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey): this(httpClient, serializerSettings, apiKey, false)
+        {
+        }
+
+
+		public BaseApiClient(HttpClient httpClient, JsonSerializerSettings serializerSettings)
         {
             _httpClient = httpClient;
             _serializerSettings = serializerSettings;
