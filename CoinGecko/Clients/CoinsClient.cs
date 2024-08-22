@@ -19,7 +19,12 @@ namespace CoinGecko.Clients
         {
         }
 
-        public async Task<IReadOnlyList<CoinFullData>> GetAllCoinsData()
+        public CoinsClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced) : base(httpClient,
+	        serializerSettings, apiKey, isPublicApiForced)
+        {
+        }
+
+		public async Task<IReadOnlyList<CoinFullData>> GetAllCoinsData()
         {
             return await GetAllCoinsData(OrderField.GeckoDesc, null, null, "", null).ConfigureAwait(false);
         }

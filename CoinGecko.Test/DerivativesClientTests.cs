@@ -7,14 +7,14 @@ using Xunit;
 
 namespace CoinGecko.Test
 {
-    public class DerivativesClientTests
+    public class DerivativesClientTests:TestBase
     {
         private readonly ICoinGeckoClient _client;
 
         public DerivativesClientTests()
         {
-            _client = CoinGeckoClient.Instance;
-        }
+	        _client = GetClient();
+		}
 
         [Fact]
         public async Task Derivatives_Count_Not_Equal_Zero()

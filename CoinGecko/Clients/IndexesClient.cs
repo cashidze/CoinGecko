@@ -18,7 +18,12 @@ namespace CoinGecko.Clients
         {
         }
 
-        public async Task<IReadOnlyList<IndexData>> GetIndexes()
+        public IndexesClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced) : base(httpClient,
+	        serializerSettings, apiKey, isPublicApiForced)
+        {
+        }
+
+		public async Task<IReadOnlyList<IndexData>> GetIndexes()
         {
             return await GetIndexes(null, "").ConfigureAwait(false);
         }

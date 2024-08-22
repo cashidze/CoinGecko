@@ -18,7 +18,12 @@ namespace CoinGecko.Clients
         {
         }
 
-        public async Task<Events> GetEvents()
+        public EventsClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced) : base(httpClient,
+	        serializerSettings, apiKey, isPublicApiForced)
+        {
+        }
+
+		public async Task<Events> GetEvents()
         {
             return await GetEvents(new string[] { }, new string[] { }, null, null, null, null).ConfigureAwait(false);
         }

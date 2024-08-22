@@ -18,7 +18,12 @@ namespace CoinGecko.Clients
         {
         }
 
-        public async Task<IReadOnlyList<Exchanges>> GetExchanges()
+        public ExchangesClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced) : base(httpClient,
+	        serializerSettings, apiKey, isPublicApiForced)
+        {
+        }
+
+		public async Task<IReadOnlyList<Exchanges>> GetExchanges()
         {
             return await GetExchanges(100, "").ConfigureAwait(false);
         }

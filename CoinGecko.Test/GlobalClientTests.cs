@@ -5,14 +5,14 @@ using Xunit;
 
 namespace CoinGecko.Test
 {
-    public class GlobalClientTests
+    public class GlobalClientTests: TestBase
     {
         private readonly ICoinGeckoClient _client;
 
         public GlobalClientTests()
         {
-            _client = CoinGeckoClient.Instance;
-        }
+	        _client = GetClient();
+		}
 
         [Fact]
         public async Task Global_Data_Must_Not_Null()

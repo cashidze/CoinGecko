@@ -16,7 +16,12 @@ namespace CoinGecko.Clients
         {
         }
 
-        public async Task<Ping> GetPingAsync()
+        public PingClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced) : base(httpClient,
+	        serializerSettings, apiKey, isPublicApiForced)
+        {
+        }
+
+		public async Task<Ping> GetPingAsync()
         {
             return await GetAsync<Ping>(AppendQueryString("ping")).ConfigureAwait(false);
         }

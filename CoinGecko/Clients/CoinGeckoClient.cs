@@ -15,12 +15,13 @@ namespace CoinGecko.Clients
         private bool _isDisposed;
         private readonly JsonSerializerSettings _serializerSettings;
         private readonly string _apiKey;
+        private readonly bool _isPublicApiForced;
 
-        #endregion Fields
+		#endregion Fields
 
-        #region Constructors
+		#region Constructors
 
-        public CoinGeckoClient() : this((JsonSerializerSettings)null)
+		public CoinGeckoClient() : this((JsonSerializerSettings)null)
         {
         }
 
@@ -81,25 +82,34 @@ namespace CoinGecko.Clients
             _apiKey = apiKey;
         }
 
-        #endregion Constructors
+        public CoinGeckoClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced)
+        {
+	        _httpClient = httpClient;
+	        _serializerSettings = serializerSettings;
+	        _apiKey = apiKey;
+	        _isPublicApiForced = isPublicApiForced;
 
-        #region Properties
+        }
 
-        public static CoinGeckoClient Instance => Lazy.Value;
+		#endregion Constructors
 
-        public ISimpleClient SimpleClient => new SimpleClient(_httpClient, _serializerSettings, _apiKey);
-        public IPingClient PingClient => new PingClient(_httpClient, _serializerSettings, _apiKey);
-        public ICoinsClient CoinsClient => new CoinsClient(_httpClient, _serializerSettings, _apiKey);
-        public IExchangesClient ExchangesClient => new ExchangesClient(_httpClient, _serializerSettings, _apiKey);
-        public IEventsClient EventsClient => new EventsClient(_httpClient, _serializerSettings, _apiKey);
-        public IExchangeRatesClient ExchangeRatesClient => new ExchangeRatesClient(_httpClient, _serializerSettings, _apiKey);
-        public IGlobalClient GlobalClient => new GlobalClient(_httpClient, _serializerSettings, _apiKey);
-        public IContractClient ContractClient => new ContractClient(_httpClient, _serializerSettings, _apiKey);
-        public IFinancePlatformsClient FinancePlatformsClient => new FinancePlatformsClient(_httpClient, _serializerSettings, _apiKey);
-        public IIndexesClient IndexesClient => new IndexesClient(_httpClient, _serializerSettings, _apiKey);
-        public IDerivativesClient DerivativesClient => new DerivativesClient(_httpClient, _serializerSettings, _apiKey);
-        public IStatusUpdatesClient StatusUpdatesClient => new StatusUpdateClient(_httpClient, _serializerSettings, _apiKey);
-        public ISearchClient SearchClient => new SearchClient(_httpClient, _serializerSettings, _apiKey);
+		#region Properties
+
+		public static CoinGeckoClient Instance => Lazy.Value;
+
+        public ISimpleClient SimpleClient => new SimpleClient(_httpClient, _serializerSettings, _apiKey, _isPublicApiForced);
+        public IPingClient PingClient => new PingClient(_httpClient, _serializerSettings, _apiKey, _isPublicApiForced);
+        public ICoinsClient CoinsClient => new CoinsClient(_httpClient, _serializerSettings, _apiKey, _isPublicApiForced);
+        public IExchangesClient ExchangesClient => new ExchangesClient(_httpClient, _serializerSettings, _apiKey, _isPublicApiForced);
+        public IEventsClient EventsClient => new EventsClient(_httpClient, _serializerSettings, _apiKey, _isPublicApiForced);
+        public IExchangeRatesClient ExchangeRatesClient => new ExchangeRatesClient(_httpClient, _serializerSettings, _apiKey, _isPublicApiForced);
+        public IGlobalClient GlobalClient => new GlobalClient(_httpClient, _serializerSettings, _apiKey, _isPublicApiForced);
+        public IContractClient ContractClient => new ContractClient(_httpClient, _serializerSettings, _apiKey, _isPublicApiForced);
+        public IFinancePlatformsClient FinancePlatformsClient => new FinancePlatformsClient(_httpClient, _serializerSettings, _apiKey, _isPublicApiForced);
+        public IIndexesClient IndexesClient => new IndexesClient(_httpClient, _serializerSettings, _apiKey, _isPublicApiForced);
+        public IDerivativesClient DerivativesClient => new DerivativesClient(_httpClient, _serializerSettings, _apiKey, _isPublicApiForced);
+        public IStatusUpdatesClient StatusUpdatesClient => new StatusUpdateClient(_httpClient, _serializerSettings, _apiKey, _isPublicApiForced);
+        public ISearchClient SearchClient => new SearchClient(_httpClient, _serializerSettings, _apiKey, _isPublicApiForced);
 
         #endregion Properties
 

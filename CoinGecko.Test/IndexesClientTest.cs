@@ -5,13 +5,13 @@ using Xunit;
 
 namespace CoinGecko.Test
 {
-    public class IndexesClientTest
+    public class IndexesClientTest: TestBase
     {
         private readonly ICoinGeckoClient _client;
         public IndexesClientTest()
         {
-            _client = CoinGeckoClient.Instance;
-        }
+			_client = GetClient();
+		}
 
         [Fact]
         public async Task Indexes_Count_Not_Equal_Zero()

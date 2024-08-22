@@ -17,7 +17,12 @@ namespace CoinGecko.Clients
         {
         }
 
-        public async Task<TrendingList> GetSearchTrending()
+        public SearchClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced) : base(httpClient,
+	        serializerSettings, apiKey, isPublicApiForced)
+        {
+        }
+
+		public async Task<TrendingList> GetSearchTrending()
         {
             return await GetAsync<TrendingList>(
                  AppendQueryString(SearchApiEndpoints.SearchTrending))

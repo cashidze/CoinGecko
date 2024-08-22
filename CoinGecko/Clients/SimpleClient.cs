@@ -18,7 +18,12 @@ namespace CoinGecko.Clients
         {
         }
 
-        public async Task<Price> GetSimplePrice(string[] ids, string[] vsCurrencies)
+        public SimpleClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced) : base(httpClient,
+	        serializerSettings, apiKey, isPublicApiForced)
+        {
+        }
+
+		public async Task<Price> GetSimplePrice(string[] ids, string[] vsCurrencies)
         {
             return await GetSimplePrice(ids, vsCurrencies, false, false, false, false).ConfigureAwait(false);
         }

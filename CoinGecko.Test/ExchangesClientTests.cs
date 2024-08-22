@@ -6,14 +6,14 @@ using Xunit;
 
 namespace CoinGecko.Test
 {
-    public class ExchangesClientTests
+    public class ExchangesClientTests: TestBase
     {
         private readonly ICoinGeckoClient _client;
 
         public ExchangesClientTests()
         {
-            _client = CoinGeckoClient.Instance;
-        }
+			_client = GetClient();
+		}
 
         [Fact]
         public async Task Exchanges_Count_Not_Equal_to_Zero()

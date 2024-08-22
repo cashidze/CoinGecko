@@ -5,13 +5,13 @@ using Xunit;
 
 namespace CoinGecko.Test
 {
-    public class PingClientTests
+    public class PingClientTests: TestBase
     {
         private readonly ICoinGeckoClient _client;
         public PingClientTests()
         {
-            _client = CoinGeckoClient.Instance;
-        }
+			_client = GetClient();
+		}
         [Fact]
         public async Task Ping_Method_Must_Return_ToTheMoon()
         {
