@@ -17,9 +17,9 @@ namespace CoinGecko.Clients
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerSettings _serializerSettings;
         private readonly string _apiKey;
-        private readonly bool _isProMode = false;
+        private readonly bool _isProMode;
 
-        public BaseApiClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced = false)
+        public BaseApiClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced)
         {
             _httpClient = httpClient;
             _serializerSettings = serializerSettings;
