@@ -18,7 +18,13 @@ namespace CoinGecko.Clients
         {
         }
 
-        public async Task<ContractData> GetContractData(string id, string contractAddress)
+        public ContractClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced) : base(httpClient,
+	        serializerSettings, apiKey, isPublicApiForced)
+        {
+
+        }
+
+		public async Task<ContractData> GetContractData(string id, string contractAddress)
         {
             return await GetAsync<ContractData>(AppendQueryString(
                 ContractApiEndPoints.ContractDetailAddress(id, contractAddress)))

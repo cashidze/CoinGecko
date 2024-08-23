@@ -5,14 +5,14 @@ using Xunit;
 
 namespace CoinGecko.Test
 {
-    public class ContractClientTests
+    public class ContractClientTests: TestBase
     {
         private readonly ICoinGeckoClient _client;
 
         public ContractClientTests()
         {
-            _client = CoinGeckoClient.Instance;
-        }
+           _client = GetClient();
+		}
 
         [Fact]
         public async Task Get_Contract_Data_for_Eth_Bat()

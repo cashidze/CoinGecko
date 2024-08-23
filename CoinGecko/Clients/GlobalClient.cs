@@ -17,7 +17,12 @@ namespace CoinGecko.Clients
         {
         }
 
-        public async Task<Global> GetGlobal()
+        public GlobalClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced) : base(httpClient,
+	        serializerSettings, apiKey, isPublicApiForced)
+        {
+        }
+
+		public async Task<Global> GetGlobal()
         {
             return await GetAsync<Global>(AppendQueryString(GlobalApiEndPoints.Global)).ConfigureAwait(false);
         }

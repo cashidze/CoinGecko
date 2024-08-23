@@ -10,18 +10,18 @@ using Xunit;
 
 namespace CoinGecko.Test
 {
-    public class CoinsClientTests
+    public class CoinsClientTests: TestBase
     {
         private readonly Task<Entities.Response.Coins.CoinFullDataById> _allCoinDataBitCoin;
         private readonly Task<Entities.Response.Coins.CoinFullDataById> _allCoinDataBitCoinWithParameter;
         public CoinsClientTests()
         {
-            _client = CoinGeckoClient.Instance;
+	        _client = GetClient();
             _allCoinDataBitCoin = GetAllCoinDataForBtc();
             _allCoinDataBitCoinWithParameter = GetAllCoinDataWithParameterForBtc();
         }
 
-        
+
         private readonly ICoinGeckoClient _client;
 
         private async Task<CoinFullDataById> GetAllCoinDataForBtc()
@@ -133,6 +133,7 @@ namespace CoinGecko.Test
         [Fact]
         public async Task Bitcoin_Market_Chart_Price_Lenght_Must_Equal_to_Marketcaps_Lenght()
         {
+	        await Task.Delay(300);
             var result = await _client.CoinsClient.GetMarketChartsByCoinId("bitcoin", "usd", "max");
             Assert.Equal(result.Prices.Length, result.MarketCaps.Length);
         }

@@ -18,7 +18,12 @@ namespace CoinGecko.Clients
         {
         }
 
-        public async Task<StatusUpdate> GetStatusUpdate()
+        public StatusUpdateClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced) : base(httpClient,
+	        serializerSettings, apiKey, isPublicApiForced)
+        {
+        }
+
+		public async Task<StatusUpdate> GetStatusUpdate()
         {
             return await GetStatusUpdate("", "", null, null).ConfigureAwait(false);
         }

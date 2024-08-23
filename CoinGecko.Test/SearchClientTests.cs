@@ -5,14 +5,14 @@ using Xunit;
 
 namespace CoinGecko.Test
 {
-    public class SearchClientTests
+    public class SearchClientTests: TestBase
     {
         private readonly ICoinGeckoClient _client;
 
         public SearchClientTests()
         {
-            _client = CoinGeckoClient.Instance;
-        }
+			_client = GetClient();
+		}
 
         [Fact]
         public async Task SearchTrending_TrendingItems_Fields_Not_Null()

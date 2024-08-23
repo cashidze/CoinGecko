@@ -5,13 +5,13 @@ using Xunit;
 
 namespace CoinGecko.Test
 {
-    public class SimpleClientTests
+    public class SimpleClientTests: TestBase
     {
         private readonly ICoinGeckoClient _client;
         public SimpleClientTests()
         {
-            _client = CoinGeckoClient.Instance;
-        }
+			_client = GetClient();
+		}
         [Fact]
         public async Task BTC_To_ETH_Convert_Must_Not_Null()
         {

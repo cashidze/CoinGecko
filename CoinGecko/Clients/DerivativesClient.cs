@@ -19,8 +19,12 @@ namespace CoinGecko.Clients
         {
         }
 
+        public DerivativesClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced) : base(httpClient,
+	        serializerSettings, apiKey, isPublicApiForced)
+        {
+        }
 
-        public async Task<IReadOnlyList<Derivatives>> GetDerivatives()
+		public async Task<IReadOnlyList<Derivatives>> GetDerivatives()
         {
             return await GetDerivatives("").ConfigureAwait(false);
         }

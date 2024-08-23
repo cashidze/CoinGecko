@@ -6,14 +6,14 @@ using Xunit;
 
 namespace CoinGecko.Test
 {
-    public class EventsClientTests
+    public class EventsClientTests:TestBase
     {
         private readonly ICoinGeckoClient _client;
 
         public EventsClientTests()
         {
-            _client = CoinGeckoClient.Instance;
-        }
+	        _client = GetClient();
+		}
 
         [Fact]
         public async Task Events_Count_Equal_to_Data_Length()

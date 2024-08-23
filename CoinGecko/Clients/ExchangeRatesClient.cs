@@ -17,7 +17,12 @@ namespace CoinGecko.Clients
         {
         }
 
-        public async Task<ExchangeRates> GetExchangeRates()
+        public ExchangeRatesClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced) : base(httpClient,
+	        serializerSettings, apiKey, isPublicApiForced)
+        {
+        }
+
+		public async Task<ExchangeRates> GetExchangeRates()
         {
             return await GetAsync<ExchangeRates>(
                 AppendQueryString(ExchangeRatesApiEndPoints.ExchangeRate)).ConfigureAwait(false);

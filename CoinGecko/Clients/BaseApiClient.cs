@@ -17,15 +17,30 @@ namespace CoinGecko.Clients
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerSettings _serializerSettings;
         private readonly string _apiKey;
+        private readonly bool _isProMode;
 
-        public BaseApiClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey)
+        public BaseApiClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey, bool isPublicApiForced)
         {
             _httpClient = httpClient;
             _serializerSettings = serializerSettings;
             _apiKey = apiKey;
+
+            if (isPublicApiForced)
+            {
+	            _isProMode = false;
+            }
+            else if(!string.IsNullOrEmpty(apiKey))
+            {
+	            _isProMode = true;
+            }
         }
 
-        public BaseApiClient(HttpClient httpClient, JsonSerializerSettings serializerSettings)
+        public BaseApiClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey): this(httpClient, serializerSettings, apiKey, false)
+        {
+        }
+
+
+		public BaseApiClient(HttpClient httpClient, JsonSerializerSettings serializerSettings)
         {
             _httpClient = httpClient;
             _serializerSettings = serializerSettings;
@@ -33,12 +48,19 @@ namespace CoinGecko.Clients
 
         public async Task<T> GetAsync<T>(Uri resourceUri)
         {
-            if (!string.IsNullOrEmpty(_apiKey))
-            {
-                resourceUri = AddParameter(resourceUri, "x_cg_pro_api_key", _apiKey);
-            }
+	        if (!string.IsNullOrEmpty(_apiKey))
+	        {
+		        if (_isProMode)
+		        {
+			        resourceUri = AddParameter(resourceUri, "x_cg_pro_api_key", _apiKey);
+		        }
+		        else
+		        {
+			        resourceUri = AddParameter(resourceUri, "x_cg_demo_api_key", _apiKey);
+		        }
+	        }
 
-            //_httpClient.DefaultRequestHeaders.Add("User-Agent", "your bot 0.1");
+	        _httpClient.DefaultRequestHeaders.Add("User-Agent", "your bot 0.1");
             var response = await _httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, resourceUri))
                 .ConfigureAwait(false);
 
@@ -93,8 +115,8 @@ namespace CoinGecko.Clients
                 .ToArray();
             var url = encodedParams.Length > 0 ? $"{path}{string.Join(string.Empty, encodedParams)}" : path;
 
-            //using pro API url if apiKey is set
-            return new Uri(string.IsNullOrEmpty(_apiKey) ? BaseApiEndPointUrl.ApiEndPoint : BaseApiEndPointUrl.ProApiEndPoint, url);
+            //using pro API url if apiKey is set and public mode not forced
+            return new Uri(_isProMode ? BaseApiEndPointUrl.ProApiEndPoint : BaseApiEndPointUrl.ApiEndPoint, url);
         }
     }
 }

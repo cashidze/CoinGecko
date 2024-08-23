@@ -1,22 +1,18 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using CoinGecko.Clients;
 using CoinGecko.Interfaces;
-using CoinGecko.Parameters;
 using Xunit;
 
 namespace CoinGecko.Test
 {
-    public class StatusUpdatesClientTest
+    public class StatusUpdatesClientTest: TestBase
     {
         private readonly ICoinGeckoClient _client;
         
         public StatusUpdatesClientTest()
         {
-            _client = CoinGeckoClient.Instance;
-        }
+	        _client = GetClient();
+		}
 
         [Theory]
         [InlineData("general")]
